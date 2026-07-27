@@ -1090,38 +1090,60 @@ function startDashboard() {
             <meta charset="UTF-8" />
             <title>SecuBot Dashboard</title>
             <style>
+              @keyframes glow {
+                0%, 100% { box-shadow: 0 0 35px rgba(44, 123, 255, 0.18); }
+                50% { box-shadow: 0 0 60px rgba(44, 123, 255, 0.32); }
+              }
+              @keyframes pulse {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-6px); }
+              }
               body {
                 margin: 0;
                 min-height: 100vh;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: radial-gradient(circle at top left, #2d6ce5 0%, #050816 55%, #000000 100%);
-                color: #f5f7ff;
+                background: radial-gradient(circle at top left, #1a3e8d 0%, #070a17 45%, #000000 100%);
+                color: #edf2ff;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
               }
               .container {
                 text-align: center;
-                width: min(640px, 90%);
+                width: min(700px, 92%);
                 padding: 48px;
-                border-radius: 28px;
+                border-radius: 30px;
+                background: rgba(5, 13, 38, 0.88);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(94, 147, 255, 0.15);
                 box-shadow: 0 28px 80px rgba(0, 0, 0, 0.35);
-                background: rgba(7, 15, 42, 0.88);
-                backdrop-filter: blur(14px);
-                border: 1px solid rgba(255, 255, 255, 0.08);
+                position: relative;
+                overflow: hidden;
+              }
+              .container::before {
+                content: '';
+                position: absolute;
+                top: -20%;
+                left: -10%;
+                width: 220%;
+                height: 220%;
+                background: radial-gradient(circle, rgba(83, 192, 255, 0.18), transparent 28%);
+                pointer-events: none;
               }
               h1 {
                 margin: 0;
                 font-size: clamp(3rem, 6vw, 5rem);
-                letter-spacing: -0.05em;
+                letter-spacing: -0.06em;
                 text-transform: uppercase;
-                color: #ffffff;
+                color: #fff;
+                text-shadow: 0 0 18px rgba(83, 192, 255, 0.28);
               }
+              h1 span { display: block; font-size: 0.55em; letter-spacing: 0.15em; color: #82a2ff; }
               p {
-                margin: 20px auto 40px;
+                margin: 18px auto 42px;
                 font-size: 1.05rem;
-                line-height: 1.7;
-                color: #d2dafb;
+                line-height: 1.75;
+                color: #c5d4ff;
               }
               .buttons {
                 display: flex;
@@ -1134,41 +1156,42 @@ function startDashboard() {
                 align-items: center;
                 justify-content: center;
                 min-width: 170px;
-                padding: 16px 26px;
+                padding: 16px 28px;
                 border-radius: 999px;
                 text-decoration: none;
                 font-size: 1rem;
-                font-weight: 700;
+                font-weight: 800;
                 transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
                 cursor: pointer;
               }
               .button.primary {
-                background: linear-gradient(135deg, #53c0ff, #2c7bff);
-                color: #051028;
-                box-shadow: 0 18px 30px rgba(44, 123, 255, 0.35);
+                background: linear-gradient(135deg, #5db8ff, #2d70ff);
+                color: #061328;
+                animation: glow 3.2s ease-in-out infinite;
               }
               .button.secondary {
-                background: rgba(255, 255, 255, 0.08);
-                color: #f8fbff;
-                border: 1px solid rgba(255, 255, 255, 0.18);
+                background: rgba(255, 255, 255, 0.07);
+                color: #f5fbff;
+                border: 1px solid rgba(255, 255, 255, 0.16);
               }
               .button:hover {
-                transform: translateY(-2px);
+                transform: translateY(-3px);
+                box-shadow: 0 16px 28px rgba(44, 123, 255, 0.28);
               }
               .footer {
-                margin-top: 36px;
-                color: #8ea7ff;
+                margin-top: 40px;
+                color: #9bb1ff;
                 font-size: 0.95rem;
               }
             </style>
           </head>
           <body>
             <div class="container">
-              <h1>SecuBot Dashboard</h1>
-              <p>Agrega el bot a tu servidor con el botón Add Bot y luego abre el panel para configurarlo.</p>
+              <h1><span>SecuBot</span> Panel</h1>
+              <p>Agrega el bot a tu servidor y abre el dashboard para gestionar seguridad y tickets con un estilo moderno.</p>
               <div class="buttons">
-                <a class="button primary" href="${botInviteUrl.toString()}">Add Bot</a>
-                <a class="button secondary" href="/login">Open Dashboard</a>
+                <a class="button primary" href="${botInviteUrl.toString()}">Agregar Bot</a>
+                <a class="button secondary" href="/login">Abrir Dashboard</a>
               </div>
               <div class="footer">Powered by SecuBot</div>
             </div>
@@ -1197,18 +1220,60 @@ function startDashboard() {
             <meta charset="UTF-8" />
             <title>SecuBot Dashboard</title>
             <style>
-              body { margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at top left, #2d6ce5 0%, #050816 55%, #000000 100%); color: #f5f7ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-              .container { width: min(760px, 92%); padding: 36px; border-radius: 28px; background: rgba(6, 15, 42, 0.88); box-shadow: 0 28px 80px rgba(0,0,0,0.34); border: 1px solid rgba(255,255,255,0.08); }
-              h1 { margin: 0 0 16px; font-size: clamp(3rem, 5vw, 4rem); text-transform: uppercase; letter-spacing: -0.04em; }
-              p { color: #cad4ff; font-size: 1.05rem; line-height: 1.7; }
-              .link { display: inline-block; margin-top: 28px; padding: 14px 22px; border-radius: 999px; background: rgba(255,255,255,0.08); color: #f8fbff; text-decoration: none; border: 1px solid rgba(255,255,255,0.16); }
-              .link:hover { transform: translateY(-2px); }
+              body {
+                margin: 0;
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: radial-gradient(circle at top left, #0c1d45 0%, #050811 48%, #000000 100%);
+                color: #eef3ff;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              }
+              .container {
+                width: min(780px, 92%);
+                padding: 42px;
+                border-radius: 32px;
+                background: rgba(4, 12, 30, 0.94);
+                border: 1px solid rgba(97, 151, 255, 0.14);
+                box-shadow: 0 32px 90px rgba(0, 0, 0, 0.38);
+                backdrop-filter: blur(16px);
+              }
+              h1 {
+                margin: 0 0 14px;
+                font-size: clamp(2.8rem, 5vw, 4rem);
+                letter-spacing: -0.05em;
+                text-transform: uppercase;
+                color: #f9fbff;
+                text-shadow: 0 0 20px rgba(83, 193, 255, 0.18);
+              }
+              p {
+                margin: 0;
+                color: #cdd8ff;
+                font-size: 1.05rem;
+                line-height: 1.8;
+              }
+              .link {
+                display: inline-flex;
+                margin-top: 30px;
+                padding: 14px 26px;
+                border-radius: 999px;
+                background: linear-gradient(135deg, rgba(83, 192, 255, 0.14), rgba(44, 118, 255, 0.18));
+                color: #eff7ff;
+                text-decoration: none;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                transition: transform 0.24s ease, box-shadow 0.24s ease;
+              }
+              .link:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 18px 36px rgba(44, 118, 255, 0.2);
+              }
             </style>
           </head>
           <body>
             <div class="container">
               <h1>SecuBot Dashboard</h1>
-              <p>No hay servidores disponibles donde el bot esté presente y tengas permisos.</p>
+              <p>No hay servidores disponibles donde el bot esté presente y tengas permisos de gestión.</p>
               <a class="link" href="/logout">Cerrar sesión</a>
             </div>
           </body>
@@ -1239,21 +1304,115 @@ function startDashboard() {
           <meta charset="UTF-8" />
           <title>SecuBot Dashboard</title>
           <style>
-            body { margin: 0; min-height: 100vh; background: radial-gradient(circle at top left, #2d6ce5 0%, #050816 55%, #000000 100%); color: #f5f7ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-            .page { width: min(1080px, 94%); margin: 0 auto; padding: 40px 0; }
-            .hero { text-align: center; padding: 0 20px; }
-            .hero h1 { margin: 0; font-size: clamp(3rem, 6vw, 5rem); letter-spacing: -0.05em; text-transform: uppercase; }
-            .hero p { margin: 18px auto 32px; font-size: 1.05rem; max-width: 760px; color: #c9d5ff; }
-            .cards { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-top: 24px; }
-            .server-card { display: flex; align-items: center; gap: 18px; padding: 22px; border-radius: 24px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 18px 45px rgba(0,0,0,0.2); }
-            .server-card img { width: 72px; height: 72px; border-radius: 22px; object-fit: cover; border: 1px solid rgba(255,255,255,0.15); }
-            .server-info { flex: 1; display: flex; flex-direction: column; gap: 10px; }
-            .server-info strong { font-size: 1.2rem; color: #ffffff; }
-            .configure-btn { display: inline-flex; align-items: center; justify-content: center; width: fit-content; padding: 12px 20px; border-radius: 999px; background: linear-gradient(135deg, #53c0ff, #2c7bff); color: #051028; font-weight: 700; text-decoration: none; box-shadow: 0 14px 28px rgba(44,123,255,0.25); }
-            .configure-btn:hover { transform: translateY(-2px); }
-            .logout-wrapper { display: flex; justify-content: center; margin-top: 44px; }
-            .logout { display: inline-flex; align-items: center; justify-content: center; padding: 14px 24px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.08); color: #f8fbff; text-decoration: none; font-weight: 700; }
-            .logout:hover { transform: translateY(-2px); }
+            body {
+              margin: 0;
+              min-height: 100vh;
+              background: radial-gradient(circle at top left, #081a44 0%, #02050d 48%, #000000 100%);
+              color: #eef3ff;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            .page {
+              width: min(1120px, 96%);
+              margin: 0 auto;
+              padding: 46px 0 62px;
+            }
+            .hero {
+              text-align: center;
+              padding: 0 20px;
+              margin-bottom: 30px;
+            }
+            .hero h1 {
+              margin: 0;
+              font-size: clamp(3rem, 5vw, 5rem);
+              letter-spacing: -0.06em;
+              text-transform: uppercase;
+              text-shadow: 0 0 24px rgba(83, 192, 255, 0.18);
+            }
+            .hero p {
+              margin: 18px auto 0;
+              font-size: 1.05rem;
+              max-width: 760px;
+              color: #c9d5ff;
+              line-height: 1.75;
+            }
+            .cards {
+              display: grid;
+              gap: 20px;
+              grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            }
+            .server-card {
+              display: flex;
+              align-items: center;
+              gap: 18px;
+              padding: 24px 26px;
+              border-radius: 28px;
+              background: rgba(14, 24, 52, 0.92);
+              border: 1px solid rgba(83, 192, 255, 0.14);
+              box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+              transition: transform 0.2s ease, border-color 0.2s ease;
+            }
+            .server-card:hover {
+              transform: translateY(-3px);
+              border-color: rgba(83, 192, 255, 0.28);
+            }
+            .server-card img {
+              width: 78px;
+              height: 78px;
+              border-radius: 24px;
+              object-fit: cover;
+              border: 1px solid rgba(255, 255, 255, 0.15);
+              background: #07102a;
+            }
+            .server-info {
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+            }
+            .server-info strong {
+              font-size: 1.2rem;
+              color: #fbfdff;
+            }
+            .configure-btn {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              min-width: 150px;
+              padding: 12px 22px;
+              border-radius: 999px;
+              background: linear-gradient(135deg, #72d3ff, #2e7bff);
+              color: #051028;
+              font-weight: 700;
+              text-decoration: none;
+              box-shadow: 0 16px 34px rgba(44, 123, 255, 0.24);
+              transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .configure-btn:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 18px 38px rgba(44, 123, 255, 0.3);
+            }
+            .logout-wrapper {
+              display: flex;
+              justify-content: center;
+              margin-top: 44px;
+            }
+            .logout {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              padding: 14px 28px;
+              border-radius: 999px;
+              border: 1px solid rgba(255, 255, 255, 0.14);
+              background: rgba(255, 255, 255, 0.05);
+              color: #eef4ff;
+              text-decoration: none;
+              font-weight: 700;
+              transition: transform 0.2s ease, background 0.2s ease;
+            }
+            .logout:hover {
+              transform: translateY(-2px);
+              background: rgba(255, 255, 255, 0.09);
+            }
           </style>
         </head>
         <body>
@@ -1318,96 +1477,6 @@ function startDashboard() {
     next();
   }
 
-  app.get("/dashboard", ensureLoggedIn, async (req, res) => {
-    const allowedGuilds = req.session.guilds.filter((guild) => {
-      const botGuild = client.guilds.cache.get(guild.id);
-      return botGuild && (guild.owner || (guild.permissions & 0x20) === 0x20);
-    });
-
-    if (!allowedGuilds.length) {
-      return res.send(`
-        <html>
-          <head>
-            <meta charset="UTF-8" />
-            <title>SecuBot Dashboard</title>
-            <style>
-              body { margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at top left, #2d6ce5 0%, #050816 55%, #000000 100%); color: #f5f7ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-              .container { width: min(760px, 92%); padding: 36px; border-radius: 28px; background: rgba(6, 15, 42, 0.88); box-shadow: 0 28px 80px rgba(0,0,0,0.34); border: 1px solid rgba(255,255,255,0.08); }
-              h1 { margin: 0 0 16px; font-size: clamp(3rem, 5vw, 4rem); text-transform: uppercase; letter-spacing: -0.04em; }
-              p { color: #cad4ff; font-size: 1.05rem; line-height: 1.7; }
-              .logout { display: inline-block; margin-top: 28px; padding: 14px 22px; border-radius: 999px; background: rgba(255,255,255,0.08); color: #f8fbff; text-decoration: none; border: 1px solid rgba(255,255,255,0.16); }
-              .logout:hover { transform: translateY(-2px); }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <h1>SecuBot Dashboard</h1>
-              <p>No tienes servidores disponibles donde el bot esté presente y tengas permisos.</p>
-              <a class="logout" href="/logout">Cerrar sesión</a>
-            </div>
-          </body>
-        </html>
-      `);
-    }
-
-    const list = allowedGuilds
-      .map((guild) => {
-        const iconUrl = guild.icon
-          ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=128`
-          : `https://via.placeholder.com/80x80.png?text=?`;
-        return `
-          <li class="server-card">
-            <img src="${iconUrl}" alt="${guild.name} icon" />
-            <div class="server-info">
-              <strong>${guild.name}</strong>
-              <a class="configure-btn" href="/guild/${guild.id}">Configurar</a>
-            </div>
-          </li>
-        `;
-      })
-      .join("");
-
-    res.send(`
-      <html>
-        <head>
-          <meta charset="UTF-8" />
-          <title>SecuBot Dashboard</title>
-          <style>
-            body { margin: 0; min-height: 100vh; background: radial-gradient(circle at top left, #2d6ce5 0%, #050816 55%, #000000 100%); color: #f5f7ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-            .page { width: min(1080px, 94%); margin: 0 auto; padding: 40px 0; }
-            .hero { text-align: center; padding: 0 20px; }
-            .hero h1 { margin: 0; font-size: clamp(3rem, 6vw, 5rem); letter-spacing: -0.05em; text-transform: uppercase; }
-            .hero p { margin: 18px auto 32px; font-size: 1.05rem; max-width: 760px; color: #c9d5ff; }
-            .cards { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-top: 24px; }
-            .server-card { display: flex; align-items: center; gap: 18px; padding: 22px; border-radius: 24px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 18px 45px rgba(0,0,0,0.2); }
-            .server-card img { width: 72px; height: 72px; border-radius: 22px; object-fit: cover; border: 1px solid rgba(255,255,255,0.15); }
-            .server-info { flex: 1; display: flex; flex-direction: column; gap: 10px; }
-            .server-info strong { font-size: 1.2rem; color: #ffffff; }
-            .configure-btn { display: inline-flex; align-items: center; justify-content: center; width: fit-content; padding: 12px 20px; border-radius: 999px; background: linear-gradient(135deg, #53c0ff, #2c7bff); color: #051028; font-weight: 700; text-decoration: none; box-shadow: 0 14px 28px rgba(44,123,255,0.25); }
-            .configure-btn:hover { transform: translateY(-2px); }
-            .logout-wrapper { display: flex; justify-content: center; margin-top: 44px; }
-            .logout { display: inline-flex; align-items: center; justify-content: center; padding: 14px 24px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.08); color: #f8fbff; text-decoration: none; font-weight: 700; }
-            .logout:hover { transform: translateY(-2px); }
-          </style>
-        </head>
-        <body>
-          <div class="page">
-            <div class="hero">
-              <h1>SecuBot Dashboard</h1>
-              <p>Selecciona el servidor que quieres configurar. Haz clic en Configurar para abrir el panel del servidor.</p>
-            </div>
-            <div class="cards">
-              ${list}
-            </div>
-            <div class="logout-wrapper">
-              <a class="logout" href="/logout">Cerrar sesión</a>
-            </div>
-          </div>
-        </body>
-      </html>
-    `);
-  });
-
     // simple HTML escape helper for textarea values
     function escapeHtml(unsafe) {
       return String(unsafe)
@@ -1457,39 +1526,244 @@ function startDashboard() {
       })
       .join("");
 
+    const guildIconUrl = botGuild.icon
+      ? `https://cdn.discordapp.com/icons/${botGuild.id}/${botGuild.icon}.png?size=128`
+      : `https://via.placeholder.com/128x128.png?text=SecuBot`;
+
     res.send(`
-      <h1>Configuración de ${botGuild.name}</h1>
-      <form action="/guild/${guildId}" method="POST">
-        <label>
-          <input type="checkbox" name="welcomeMessageEnabled" ${welcomeChecked} /> Activar bienvenidas
-        </label>
-        <p>Canal de bienvenida:</p>
-        <select name="welcomeChannelId" size="8" style="width:300px;">
-          <option value="">(Usar canal del sistema)</option>
-          ${channelOptions}
-        </select>
-        <p>Mensaje de bienvenida (usa [usermention], [usertag], [server]):</p>
-        <textarea name="welcomeMessageTemplate" rows="4" cols="60">${escapeHtml(settings.welcomeMessageTemplate || '')}</textarea>
-        <h3>Tickets</h3>
-        <p>Rol de soporte (será notificado y verá los tickets):</p>
-        <select name="ticketRoleId" style="width:300px;">
-          <option value="">(Ninguno seleccionado)</option>
-          ${roles.map((r) => `<option value="${r.id}" ${r.id===settings.ticketRoleId? 'selected':''}>${escapeHtml(r.name)}</option>`).join('')}
-        </select>
-        <p>Categoría donde se crearán los tickets:</p>
-        <select name="ticketCategoryId" style="width:300px;">
-          <option value="">(Ninguna seleccionada)</option>
-          ${categories.map((c) => `<option value="${c.id}" ${c.id===settings.ticketCategoryId? 'selected':''}>${escapeHtml(c.name)}</option>`).join('')}
-        </select>
-        <h3>Protecciones</h3>
-        <label><input type="checkbox" name="antiRaid" ${settings.antiRaid ? 'checked' : ''} /> Anti-Raid</label><br />
-        <label><input type="checkbox" name="antiNuke" ${settings.antiNuke ? 'checked' : ''} /> Anti-Nuke</label><br />
-        <label><input type="checkbox" name="antiLinks" ${settings.antiLinks ? 'checked' : ''} /> Anti-Links</label><br />
-        <label><input type="checkbox" name="antiBots" ${settings.antiBots ? 'checked' : ''} /> Anti-Bots</label><br />
-        <label><input type="checkbox" name="antiFlood" ${settings.antiFlood ? 'checked' : ''} /> Anti-Flood</label><br />
-        <p><button type="submit">Guardar</button></p>
-      </form>
-      <a href="/dashboard">Volver</a>
+      <html>
+        <head>
+          <meta charset="UTF-8" />
+          <title>Configuración de ${escapeHtml(botGuild.name)}</title>
+          <style>
+            body {
+              margin: 0;
+              min-height: 100vh;
+              background: radial-gradient(circle at top left, #09172e 0%, #020409 42%, #000000 100%);
+              color: #f1f5ff;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            .page {
+              width: min(1100px, 96%);
+              margin: 0 auto;
+              padding: 40px 0 60px;
+            }
+            .card {
+              background: rgba(7, 16, 38, 0.94);
+              border: 1px solid rgba(79, 156, 255, 0.14);
+              border-radius: 30px;
+              box-shadow: 0 32px 90px rgba(0, 0, 0, 0.28);
+              overflow: hidden;
+            }
+            .card-header {
+              display: flex;
+              align-items: center;
+              gap: 20px;
+              padding: 32px 36px;
+              background: linear-gradient(135deg, rgba(44, 123, 255, 0.18), rgba(6, 18, 48, 0.96));
+            }
+            .guild-icon {
+              width: 88px;
+              height: 88px;
+              border-radius: 24px;
+              object-fit: cover;
+              border: 1px solid rgba(255, 255, 255, 0.12);
+              background: #04102a;
+            }
+            .guild-title {
+              display: grid;
+              gap: 6px;
+            }
+            .guild-title h1 {
+              margin: 0;
+              font-size: clamp(2rem, 3vw, 2.8rem);
+              letter-spacing: -0.04em;
+            }
+            .guild-title p {
+              margin: 0;
+              color: #adc7ff;
+            }
+            .card-body {
+              padding: 34px 36px 42px;
+              display: grid;
+              gap: 24px;
+            }
+            .section {
+              background: rgba(255, 255, 255, 0.03);
+              border: 1px solid rgba(255, 255, 255, 0.08);
+              border-radius: 24px;
+              padding: 24px;
+            }
+            .section-title {
+              margin: 0 0 16px;
+              font-size: 1.1rem;
+              color: #e7eeff;
+              font-weight: 700;
+            }
+            .field {
+              display: grid;
+              gap: 10px;
+              margin-bottom: 18px;
+            }
+            .field label {
+              display: inline-flex;
+              align-items: center;
+              gap: 12px;
+              color: #d7e3ff;
+              font-weight: 600;
+            }
+            input[type="checkbox"] {
+              accent-color: #54c3ff;
+              width: 18px;
+              height: 18px;
+            }
+            select,
+            textarea {
+              width: 100%;
+              min-height: 48px;
+              border-radius: 18px;
+              border: 1px solid rgba(255, 255, 255, 0.12);
+              background: rgba(6, 14, 28, 0.96);
+              color: #eef3ff;
+              padding: 14px 16px;
+              font-size: 1rem;
+              outline: none;
+            }
+            select { min-height: 52px; }
+            textarea { min-height: 140px; resize: vertical; }
+            .field small {
+              color: #a9b8ff;
+              line-height: 1.6;
+            }
+            .row {
+              display: grid;
+              gap: 20px;
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .row-single { grid-template-columns: 1fr; }
+            .actions {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 16px;
+              justify-content: flex-end;
+              margin-top: 8px;
+            }
+            .button-submit,
+            .button-back {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              padding: 14px 26px;
+              border-radius: 999px;
+              border: 1px solid rgba(255, 255, 255, 0.14);
+              font-weight: 700;
+              text-decoration: none;
+              transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+            }
+            .button-submit {
+              background: linear-gradient(135deg, #5db8ff, #2d70ff);
+              color: #061328;
+              box-shadow: 0 18px 38px rgba(44, 123, 255, 0.22);
+              border-color: transparent;
+            }
+            .button-back {
+              background: rgba(255, 255, 255, 0.06);
+              color: #eef4ff;
+            }
+            .button-submit:hover,
+            .button-back:hover {
+              transform: translateY(-2px);
+            }
+            .note {
+              margin: 0;
+              color: #a9bcff;
+              line-height: 1.75;
+            }
+            @media (max-width: 840px) {
+              .row { grid-template-columns: 1fr; }
+              .card-header { flex-direction: column; align-items: flex-start; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="page">
+            <div class="card">
+              <div class="card-header">
+                <img class="guild-icon" src="${guildIconUrl}" alt="Icono de ${escapeHtml(botGuild.name)}" />
+                <div class="guild-title">
+                  <h1>${escapeHtml(botGuild.name)}</h1>
+                  <p>Configura seguridad, tickets y bienvenida en tu servidor.</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <form action="/guild/${guildId}" method="POST">
+                  <div class="section">
+                    <p class="section-title">Bienvenida</p>
+                    <div class="field">
+                      <label><input type="checkbox" name="welcomeMessageEnabled" ${welcomeChecked} /> Activar mensaje de bienvenida</label>
+                    </div>
+                    <div class="field">
+                      <label>Canal de bienvenida</label>
+                      <select name="welcomeChannelId">
+                        <option value="">(Usar canal del sistema)</option>
+                        ${channelOptions}
+                      </select>
+                      <small>El bot enviará el mensaje al canal seleccionado.</small>
+                    </div>
+                    <div class="field">
+                      <label>Mensaje de bienvenida</label>
+                      <textarea name="welcomeMessageTemplate">${escapeHtml(settings.welcomeMessageTemplate || '')}</textarea>
+                      <small>Usa etiquetas: [usermention], [usertag], [server].</small>
+                    </div>
+                  </div>
+
+                  <div class="section">
+                    <p class="section-title">Tickets</p>
+                    <div class="field">
+                      <label>Rol de soporte</label>
+                      <select name="ticketRoleId">
+                        <option value="">(Ninguno seleccionado)</option>
+                        ${roles
+                          .map(
+                            (r) => `<option value="${r.id}" ${r.id === settings.ticketRoleId ? 'selected' : ''}>${escapeHtml(r.name)}</option>`
+                          )
+                          .join('')}
+                      </select>
+                    </div>
+                    <div class="field">
+                      <label>Categoría de tickets</label>
+                      <select name="ticketCategoryId">
+                        <option value="">(Ninguna seleccionada)</option>
+                        ${categories
+                          .map(
+                            (c) => `<option value="${c.id}" ${c.id === settings.ticketCategoryId ? 'selected' : ''}>${escapeHtml(c.name)}</option>`
+                          )
+                          .join('')}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="section">
+                    <p class="section-title">Protecciones</p>
+                    <div class="row row-single">
+                      <label><input type="checkbox" name="antiRaid" ${settings.antiRaid ? 'checked' : ''} /> Anti-Raid</label>
+                      <label><input type="checkbox" name="antiNuke" ${settings.antiNuke ? 'checked' : ''} /> Anti-Nuke</label>
+                      <label><input type="checkbox" name="antiLinks" ${settings.antiLinks ? 'checked' : ''} /> Anti-Links</label>
+                      <label><input type="checkbox" name="antiBots" ${settings.antiBots ? 'checked' : ''} /> Anti-Bots</label>
+                      <label><input type="checkbox" name="antiFlood" ${settings.antiFlood ? 'checked' : ''} /> Anti-Flood</label>
+                    </div>
+                  </div>
+
+                  <div class="actions">
+                    <button type="submit" class="button-submit">Guardar cambios</button>
+                    <a class="button-back" href="/dashboard">Volver al dashboard</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </body>
+      </html>
     `);
   });
 
@@ -1520,7 +1794,77 @@ function startDashboard() {
       ticketCategoryId: req.body.ticketCategoryId || "",
     };
     setGuildProtectionSettings(guildId, updatedSettings);
-    res.send(`<p>Configuración guardada.</p><a href="/guild/${guildId}">Volver</a>`);
+    res.send(`
+      <html>
+        <head>
+          <meta charset="UTF-8" />
+          <title>Configuración guardada</title>
+          <style>
+            body {
+              margin: 0;
+              min-height: 100vh;
+              background: radial-gradient(circle at top left, #071528 0%, #03050b 58%, #000000 100%);
+              color: #eef2ff;
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            .container {
+              width: min(760px, 92%);
+              margin: 0 auto;
+              padding: 38px;
+              border-radius: 32px;
+              background: rgba(6, 14, 32, 0.96);
+              border: 1px solid rgba(83, 191, 255, 0.16);
+              box-shadow: 0 28px 84px rgba(0, 0, 0, 0.35);
+              text-align: center;
+            }
+            h1 {
+              margin: 0 0 18px;
+              font-size: clamp(2.4rem, 5vw, 3.2rem);
+              color: #f7fbff;
+            }
+            p {
+              color: #c9d4ff;
+              font-size: 1rem;
+              line-height: 1.8;
+            }
+            .buttons {
+              display: flex;
+              justify-content: center;
+              gap: 16px;
+              flex-wrap: wrap;
+              margin-top: 28px;
+            }
+            .button {
+              padding: 14px 26px;
+              border-radius: 999px;
+              text-decoration: none;
+              font-weight: 700;
+              color: #eef2ff;
+              background: linear-gradient(135deg, #4ca8ff, #1e57d4);
+              border: 1px solid rgba(255, 255, 255, 0.12);
+              transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .button:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 18px 36px rgba(30, 87, 212, 0.26);
+            }
+            .button.secondary {
+              background: rgba(255, 255, 255, 0.08);
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>Configuración guardada</h1>
+            <p>Los cambios se han aplicado correctamente en ${escapeHtml(botGuild.name)}.</p>
+            <div class="buttons">
+              <a class="button" href="/guild/${guildId}">Volver a la configuración</a>
+              <a class="button secondary" href="/dashboard">Ir al dashboard</a>
+            </div>
+          </div>
+        </body>
+      </html>
+    `);
   });
 
   app.get("/logout", (req, res) => {
