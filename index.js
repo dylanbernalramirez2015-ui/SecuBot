@@ -1077,10 +1077,10 @@ function startDashboard() {
   oauthUrl.searchParams.set("response_type", "code");
   oauthUrl.searchParams.set("scope", "identify guilds");
 
-  const botInviteUrl = new URL("https://discord.com/oauth2/authorize");
+  const botInviteUrl = new URL("https://discord.com/api/oauth2/authorize");
   botInviteUrl.searchParams.set("client_id", oauthClientId);
   botInviteUrl.searchParams.set("permissions", "8");
-  botInviteUrl.searchParams.set("scope", "bot%20applications.commands");
+  botInviteUrl.searchParams.set("scope", "bot applications.commands");
 
   app.get("/", (req, res) => {
     if (!req.session.user) {
