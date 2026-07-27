@@ -1,0 +1,35 @@
+{
+  "protections": {
+    "1531059211415453778": {
+      "antiRaid": true,
+      "antiNuke": true,
+      "antiLinks": true,
+      "antiBots": true,
+      "antiFlood": true
+    },
+    "1464018120481177742": {
+      "antiRaid": true,
+      "antiNuke": true,
+      "antiLinks": true,
+      "antiBots": true,
+      "antiFlood": true,
+      "welcomeMessageEnabled": true,
+      "welcomeChannelId": "1527407757387632761",
+      "welcomeMessageTemplate": "🎉 el usuario [usermention] se entro al servidor [server]",
+      "ticketRoleId": "1527401403314733126",
+      "ticketCategoryId": "1527150654886510706"
+    },
+    "1531113341974614138": {
+      "antiRaid": true,
+      "antiNuke": true,
+      "antiLinks": true,
+      "antiBots": true,
+      "antiFlood": true,
+      "welcomeMessageEnabled": true,
+      "welcomeChannelId": "",
+      "welcomeMessageTemplate": "🎉 el usuario [usermention] se entro al servidor [server]",
+      "ticketRoleId": "",
+      "ticketCategoryId": ""
+    }
+  }
+}
