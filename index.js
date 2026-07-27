@@ -1168,7 +1168,7 @@ function startDashboard() {
               <p>Agrega el bot a tu servidor con el botón Add Bot y luego abre el panel para configurarlo.</p>
               <div class="buttons">
                 <a class="button primary" href="${botInviteUrl.toString()}">Add Bot</a>
-                <a class="button secondary" href="/dashboard">Open Dashboard</a>
+                <a class="button secondary" href="/login">Open Dashboard</a>
               </div>
               <div class="footer">Powered by SecuBot</div>
             </div>
@@ -1182,6 +1182,96 @@ function startDashboard() {
 
   app.get("/login", (req, res) => {
     res.redirect(oauthUrl.toString());
+  });
+
+  app.get("/dashboard", ensureLoggedIn, async (req, res) => {
+    const allowedGuilds = req.session.guilds.filter((guild) => {
+      const botGuild = client.guilds.cache.get(guild.id);
+      return botGuild && (guild.owner || (guild.permissions & 0x20) === 0x20);
+    });
+
+    if (!allowedGuilds.length) {
+      return res.send(`
+        <html>
+          <head>
+            <meta charset="UTF-8" />
+            <title>SecuBot Dashboard</title>
+            <style>
+              body { margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at top left, #2d6ce5 0%, #050816 55%, #000000 100%); color: #f5f7ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+              .container { width: min(760px, 92%); padding: 36px; border-radius: 28px; background: rgba(6, 15, 42, 0.88); box-shadow: 0 28px 80px rgba(0,0,0,0.34); border: 1px solid rgba(255,255,255,0.08); }
+              h1 { margin: 0 0 16px; font-size: clamp(3rem, 5vw, 4rem); text-transform: uppercase; letter-spacing: -0.04em; }
+              p { color: #cad4ff; font-size: 1.05rem; line-height: 1.7; }
+              .link { display: inline-block; margin-top: 28px; padding: 14px 22px; border-radius: 999px; background: rgba(255,255,255,0.08); color: #f8fbff; text-decoration: none; border: 1px solid rgba(255,255,255,0.16); }
+              .link:hover { transform: translateY(-2px); }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>SecuBot Dashboard</h1>
+              <p>No hay servidores disponibles donde el bot esté presente y tengas permisos.</p>
+              <a class="link" href="/logout">Cerrar sesión</a>
+            </div>
+          </body>
+        </html>
+      `);
+    }
+
+    const list = allowedGuilds
+      .map((guild) => {
+        const iconUrl = guild.icon
+          ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=128`
+          : `https://via.placeholder.com/80x80.png?text=?`;
+        return `
+          <li class="server-card">
+            <img src="${iconUrl}" alt="${guild.name} icon" />
+            <div class="server-info">
+              <strong>${guild.name}</strong>
+              <a class="configure-btn" href="/guild/${guild.id}">Configurar</a>
+            </div>
+          </li>
+        `;
+      })
+      .join("");
+
+    res.send(`
+      <html>
+        <head>
+          <meta charset="UTF-8" />
+          <title>SecuBot Dashboard</title>
+          <style>
+            body { margin: 0; min-height: 100vh; background: radial-gradient(circle at top left, #2d6ce5 0%, #050816 55%, #000000 100%); color: #f5f7ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+            .page { width: min(1080px, 94%); margin: 0 auto; padding: 40px 0; }
+            .hero { text-align: center; padding: 0 20px; }
+            .hero h1 { margin: 0; font-size: clamp(3rem, 6vw, 5rem); letter-spacing: -0.05em; text-transform: uppercase; }
+            .hero p { margin: 18px auto 32px; font-size: 1.05rem; max-width: 760px; color: #c9d5ff; }
+            .cards { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-top: 24px; }
+            .server-card { display: flex; align-items: center; gap: 18px; padding: 22px; border-radius: 24px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 18px 45px rgba(0,0,0,0.2); }
+            .server-card img { width: 72px; height: 72px; border-radius: 22px; object-fit: cover; border: 1px solid rgba(255,255,255,0.15); }
+            .server-info { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+            .server-info strong { font-size: 1.2rem; color: #ffffff; }
+            .configure-btn { display: inline-flex; align-items: center; justify-content: center; width: fit-content; padding: 12px 20px; border-radius: 999px; background: linear-gradient(135deg, #53c0ff, #2c7bff); color: #051028; font-weight: 700; text-decoration: none; box-shadow: 0 14px 28px rgba(44,123,255,0.25); }
+            .configure-btn:hover { transform: translateY(-2px); }
+            .logout-wrapper { display: flex; justify-content: center; margin-top: 44px; }
+            .logout { display: inline-flex; align-items: center; justify-content: center; padding: 14px 24px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.08); color: #f8fbff; text-decoration: none; font-weight: 700; }
+            .logout:hover { transform: translateY(-2px); }
+          </style>
+        </head>
+        <body>
+          <div class="page">
+            <div class="hero">
+              <h1>SecuBot Dashboard</h1>
+              <p>Selecciona el servidor que quieres configurar. Haz clic en Configurar para abrir el panel del servidor.</p>
+            </div>
+            <div class="cards">
+              ${list}
+            </div>
+            <div class="logout-wrapper">
+              <a class="logout" href="/logout">Cerrar sesión</a>
+            </div>
+          </div>
+        </body>
+      </html>
+    `);
   });
 
   app.get("/callback", async (req, res) => {
